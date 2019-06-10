@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="DataBase">
+  <DataContextMoniker Name="/DataBaseDataContext" />
+  <nestedChildShapes>
+    <classShape Id="61d51386-fde8-4d77-983e-4f9c869051d0" absoluteBounds="0.75, 0.875, 2, 1.1939925130208333">
+      <DataClassMoniker Name="/DataBaseDataContext/Account" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3ca2d91e-25b9-4415-92e1-a64a0f505306" absoluteBounds="0.765, 1.335, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d5256a30-c546-4907-98ed-a8113674ea64" absoluteBounds="3.5, 0.875, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/DataBaseDataContext/Friend" />
+      <nestedChildShapes>
+        <elementListCompartment Id="44446888-64fa-41f5-94c6-b88f66f940d4" absoluteBounds="3.515, 1.335, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 1.47199625651042); (3.5 : 1.47199625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DataBaseDataContext/Account/Account_Friend" />
+      <nodes>
+        <classShapeMoniker Id="61d51386-fde8-4d77-983e-4f9c869051d0" />
+        <classShapeMoniker Id="d5256a30-c546-4907-98ed-a8113674ea64" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 1.11099812825521); (3.5 : 1.11099812825521)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/DataBaseDataContext/Account/Account_Friend1" />
+      <nodes>
+        <classShapeMoniker Id="61d51386-fde8-4d77-983e-4f9c869051d0" />
+        <classShapeMoniker Id="d5256a30-c546-4907-98ed-a8113674ea64" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

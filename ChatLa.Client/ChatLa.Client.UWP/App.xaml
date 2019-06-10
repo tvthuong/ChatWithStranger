@@ -1,0 +1,15 @@
+﻿<Application
+    x:Class="ChatLa.Client.UWP.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ChatLa.Client.UWP"
+    RequestedTheme="Light">
+    <Application.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="MyDataTemplate">
+                <Grid Height="0" Width="0">
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

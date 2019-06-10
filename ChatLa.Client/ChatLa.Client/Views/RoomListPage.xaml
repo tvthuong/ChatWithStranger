@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:ChatLa.Client.Helpers"
+             x:Class="ChatLa.Client.Views.RoomListPage"
+             Title="{Binding Title}"
+             IsBusy="{Binding IsDisabled}">
+    <ContentPage.Content>
+        <StackLayout IsVisible="{Binding IsHasChatName, Source={x:Static helpers:CurrentSettings.Settings}}">
+            <ActivityIndicator IsRunning="{Binding IsDisabled}" IsVisible="{Binding IsDisabled}"/>
+            <Button Text="{helpers:Translate btnRefreshText}" IsEnabled="{Binding IsEnabled}" Command="{Binding cmdRefresh}">
+                <Button.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <OnPlatform.Platforms>
+                            <On Platform="iOS, Android" Value="false" />
+                            <On Platform="UWP" Value="true" />
+                        </OnPlatform.Platforms>
+                    </OnPlatform>
+                </Button.IsVisible>
+            </Button>
+            <ListView IsGroupingEnabled="true" ItemTapped="ListView_ItemTapped" SelectionMode="None" IsPullToRefreshEnabled = "True" RefreshCommand = "{Binding cmdRefresh}" IsRefreshing = "{Binding IsDisabled}" IsEnabled="{Binding IsEnabled}" ItemsSource="{Binding Rooms}">
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding Heading}" />
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

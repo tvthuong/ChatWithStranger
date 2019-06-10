@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers="clr-namespace:ChatLa.Client.Helpers"
+             x:Class="ChatLa.Client.Views.SettingsPage"
+             Title="{Binding Title}"
+             IsBusy="{Binding IsBusy}">
+    <ContentPage.Content>
+        <StackLayout>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}"/>
+            <Button Text="{helpers:Translate btnLogInText}" Command="{Binding cmdLogIn}" IsVisible="{Binding IsNotHasAccount, Source={x:Static helpers:CurrentSettings.Settings}}"/>
+            <Grid IsVisible="{Binding IsHasAccount, Source={x:Static helpers:CurrentSettings.Settings}}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label FontSize="Medium" Text="{Binding UserName, Source={x:Static helpers:CurrentSettings.Settings}}" Grid.Row="0" Grid.Column="0"/>
+                <Image Grid.Row="0" Grid.Column="1" Source="ChangePassword.png" WidthRequest="16" HeightRequest="16">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding cmdChangePassword}" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Grid.Row="0" Grid.Column="2" Source="LogOut.png" WidthRequest="16" HeightRequest="16">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding cmdLogOut}" NumberOfTapsRequired="1"/>
+                    </Image.GestureRecognizers>
+                </Image>
+            </Grid>
+            <Entry IsEnabled="{Binding IsNotBusy}" Placeholder="{helpers:Translate txtChatNamePlaceholder}" Text="{Binding ChatName, Source={x:Static helpers:CurrentSettings.Settings}}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

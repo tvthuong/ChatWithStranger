@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ChatLa.Client.Views.MemberListPage"
+             xmlns:translator="clr-namespace:ChatLa.Client.Helpers"
+             x:Name="MemberList"
+             Title="{Binding Title}"
+             IsBusy="{Binding IsDisabled}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding cmdInviteFriend}" Order="Primary" Text="{translator:Translate ToolbarItemMember2}" Priority="0" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <ActivityIndicator IsRunning="{Binding IsDisabled}" IsVisible="{Binding IsDisabled}"/>
+            <Label Text="{Binding txtNotify}" HorizontalTextAlignment="Center"/>
+            <ListView HasUnevenRows="True" RefreshCommand="{Binding cmdRefresh}" SelectionMode="None" IsRefreshing = "{Binding IsBusy}" IsEnabled="{Binding IsEnabled}" IsPullToRefreshEnabled = "True" ItemsSource="{Binding Members}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Start">
+                                    <Image IsVisible="{Binding IsAdmin}" Source="Admin.png" WidthRequest="16" HeightRequest="16"/>
+                                    <Label FontSize="Medium" Text="{Binding ChatName, StringFormat='ChatName: {0}'}"/>
+                                </StackLayout>
+                                <Label FontSize="Micro" Grid.Row="1" Grid.Column="0" IsVisible="{Binding HasAccount}">
+                                    <Label.Triggers>
+                                        <DataTrigger Binding="{Binding HasAccount}" TargetType="Label" Value="true">
+                                            <Setter Property="Text" Value="{Binding Account.UserName}"/>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                                    <Switch IsVisible="{Binding IsVisibleAllowInviteFriend}" IsToggled="{Binding AllowInviteFriend}"/>
+                                    <Image IsVisible="{Binding CanRequestPrivateChat}" Source="Chat.png" WidthRequest="16" HeightRequest="16">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding BindingContext.cmdPrivatechatrequest, Source={x:Reference MemberList}}" CommandParameter="{Binding}" NumberOfTapsRequired="1"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                    <Image IsVisible="{Binding CanAddFriend}" Source="AddFriend.png" WidthRequest="16" HeightRequest="16">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding BindingContext.cmdAddFriendrequest, Source={x:Reference MemberList}}" CommandParameter="{Binding}" NumberOfTapsRequired="1"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                    <Image IsVisible="{Binding CanRemoveOrAllowInviteFriend}" Source="Delete.png" WidthRequest="16" HeightRequest="16">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding BindingContext.cmdRemoveMember, Source={x:Reference MemberList}}" CommandParameter="{Binding}" NumberOfTapsRequired="1"/>
+                                        </Image.GestureRecognizers>
+                                    </Image>
+                                </StackLayout>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

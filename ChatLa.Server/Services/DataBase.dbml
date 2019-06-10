@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ChatLa" Class="DataBaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=192.168.159.100,1433;Initial Catalog=ChatLa;User ID=sa" SettingsObjectName="ChatLa.Server.Properties.Settings" SettingsPropertyName="ChatLaConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Account" Member="Accounts">
+    <Type Name="Account">
+      <Column Name="UserName" Type="System.String" DbType="VarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="Char(32)" CanBeNull="true" />
+      <Association Name="Account_Friend" Member="Friends" ThisKey="UserName" OtherKey="FirstMember" Type="Friend" />
+      <Association Name="Account_Friend1" Member="Friends1" ThisKey="UserName" OtherKey="SecondMember" Type="Friend" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Friend" Member="Friends">
+    <Type Name="Friend">
+      <Column Name="FirstMember" Type="System.String" DbType="VarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SecondMember" Type="System.String" DbType="VarChar(30) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Account_Friend" Member="Account" ThisKey="FirstMember" OtherKey="UserName" Type="Account" IsForeignKey="true" />
+      <Association Name="Account_Friend1" Member="Account1" ThisKey="SecondMember" OtherKey="UserName" Type="Account" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

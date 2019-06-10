@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ChatLa.Client.Views.ChatRoomPage"
+             xmlns:local="clr-namespace:ChatLa.Client.Models"
+             xmlns:translator="clr-namespace:ChatLa.Client.Helpers"
+             xmlns:Lib="clr-namespace:Common_Library;assembly=Common_Library"
+             Title="{Binding Title}"
+             IsBusy="{Binding IsBusy}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding cmdViewMember}" Order="Primary" Text="{translator:Translate ToolbarItemMember}" Priority="0" />
+        <ToolbarItem Command="{Binding cmdChangeRoomType}" Order="Secondary" Text="{translator:Translate ToolbarItemMember1}" Priority="1" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Picker IsVisible="{Binding IsHasMembers}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" IsEnabled="{Binding IsNotBusy}" Title="{translator:Translate PkSendToTitle}" ItemsSource="{Binding Members}" ItemDisplayBinding="{Binding ChatName}" SelectedItem="{Binding Selected}"/>
+            <ListView SelectionMode="None" HasUnevenRows="True" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ItemsSource="{Binding ChatMessages}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout BackgroundColor="Silver">
+                                <StackLayout.Triggers>
+                                    <DataTrigger Binding="{Binding Sender}"
+                                                 Value="{x:Static local:Sender.Me}"
+                                                 TargetType="StackLayout">
+                                        <Setter Property="BackgroundColor" Value="LightPink"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Sender}"
+                                                 Value="{x:Static local:Sender.System}"
+                                                 TargetType="StackLayout">
+                                        <Setter Property="BackgroundColor" Value="White"></Setter>
+                                    </DataTrigger>
+                                </StackLayout.Triggers>
+                                <Label IsVisible="True" Text="{Binding ChatName}" FontSize="Micro">
+                                    <Label.Triggers>
+                                        <DataTrigger Binding="{Binding ChatName}"
+                                                 Value=""
+                                                 TargetType="Label">
+                                            <Setter Property="IsVisible" Value="False"></Setter>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Label Text="{Binding Message}" FontSize="Medium" FontAttributes="Bold">
+                                    <Label.Triggers>
+                                        <DataTrigger Binding="{Binding Sender}"
+                                                 Value="{x:Static local:Sender.Me}"
+                                                 TargetType="Label">
+                                            <Setter Property="HorizontalTextAlignment" Value="End"></Setter>
+                                        </DataTrigger>
+                                        <DataTrigger x:Name="trigger" Binding="{Binding Sender}"
+                                                 Value="{x:Static local:Sender.System}"
+                                                 TargetType="Label">
+                                            <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Label HorizontalTextAlignment="End" FontSize="Small" Text="{Binding SendTime, StringFormat='{0:hh:mm}'}">
+                                    <Label.Triggers>
+                                        <x:Reference Name="trigger"/>
+                                    </Label.Triggers>
+                                </Label>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Editor Keyboard="Chat" IsEnabled="{Binding IsNotBusy}" Grid.Row="2" Grid.Column="0" Placeholder="{translator:Translate txtMessagePlaceholder}" Text="{Binding txtMessage}"/>
+            <Button Grid.Row="2" Grid.Column="1" Text="{translator:Translate btnSendText}" Command="{Binding cmdSend}"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

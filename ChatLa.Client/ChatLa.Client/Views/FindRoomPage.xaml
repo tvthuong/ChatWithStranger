@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ChatLa.Client.Views.FindRoomPage"
+             xmlns:helpers="clr-namespace:ChatLa.Client.Helpers"
+             Title="{Binding Title}"
+             IsBusy="{Binding IsDisabled}">
+    <ContentPage.Content>
+        <StackLayout IsVisible="{Binding IsHasChatName, Source={x:Static helpers:CurrentSettings.Settings}}">
+            <ActivityIndicator IsVisible="{Binding IsDisabled}" IsRunning="{Binding IsDisabled}"/>
+            <Label Text="{Binding ChatName, Source={x:Static helpers:CurrentSettings.Settings}, StringFormat='Chat name: {0}'}"/>
+            <Picker IsEnabled="{Binding IsEnabled}" Title="{helpers:Translate PkRoomTypeTitle}" ItemsSource="{Binding RoomTypes}" ItemDisplayBinding="{Binding Description}" SelectedItem="{Binding Selected}"/>
+            <Button Text="{helpers:Translate btnFindRoomText}" Command="{Binding cmdFindRoom}"/>
+            <Label Text="{Binding txtNotify}" HorizontalTextAlignment="Center"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

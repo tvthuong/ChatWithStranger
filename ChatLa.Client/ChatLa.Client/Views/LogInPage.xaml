@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ChatLa.Client.Views.LogInPage"
+             xmlns:helpers="clr-namespace:ChatLa.Client.Helpers"
+             Title="{Binding Title}"
+             IsBusy="{Binding IsBusy}">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry IsVisible="{Binding IsLogIn}" Placeholder="{helpers:Translate txtUserNameText}" Text="{Binding UserName}"/>
+            <Entry IsPassword="True" Placeholder="{helpers:Translate txtPasswordText}" Text="{Binding Password}"/>
+            <Entry IsVisible="{Binding IsChangePassword}" IsPassword="True" Placeholder="{helpers:Translate txtNewPasswordText}" Text="{Binding NewPassword}"/>
+            <Entry IsVisible="{Binding IsChangePassword}" IsPassword="True" Placeholder="{helpers:Translate txtConfirmPasswordText}" Text="{Binding ConfirmPassword}"/>
+            <Button IsVisible="{Binding IsChangePassword}" Text="{helpers:Translate btnChangePasswordText}" Command="{Binding cmdChangePassword}"/>
+            <Button IsVisible="{Binding IsLogIn}" Text="{helpers:Translate btnLogInText}" Command="{Binding cmdLogIn}"/>
+            <Button IsVisible="{Binding IsLogIn}" Text="{helpers:Translate btnCreateAccountText}" Command="{Binding cmdCreateAccount}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
